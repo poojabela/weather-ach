@@ -10,13 +10,12 @@ function App() {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9e5fcba575a1e485f66aae24b59be65b`;
 
   const handleSearch = (e) => {
-    if(e.key === 'Enter') {
-      axios.get(url).then((response) => {
-        setData(response.data);
-      })
-      setCity('');
+    e.preventDefault();
+    axios.get(url).then((response) => {
+    setData(response.data);
+    });
+    setCity('');
     }
-  }
 
   return (
     <div className="App">
@@ -25,8 +24,8 @@ function App() {
         placeholder='Enter city name'
         value={city}
         onChange={event => setCity(event.target.value)}
-        onKeyPress={handleSearch}
         />
+        <button onClick={handleSearch}>Search</button>
       </div>
 
       {data.name !== undefined && 
